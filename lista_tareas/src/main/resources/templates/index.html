@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="https://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de tareas</title>
+</head>
+
+<body>
+
+  <h1>App de Lista de Tareas</h1>
+
+  <form th:action="@{/guardar}" th:object="${tarea}" method="post">
+
+    <label for="descripcion">Descripcion de la tarea:</label>
+    <input type="text" th:field="*{descripcion}" id="descripcion" placeholder="Ingrese la descripción">
+    <input type="submit" value="Guardar">
+
+  </form>
+
+  <h2>Tareas pendientes</h2>
+  <ul th:object="${tareas}">
+    <li th:each="tar :${tareas}">
+      <span th:text="${tar.descripcion}"></span>
+      <span th:text="${tar.completada} ? ' - Completada' : ' - Pendiente' "></span>
+      <form th:action="@{/completar/{id}(id=${tar.id})}" method="post">
+        <input type="submit" value="Completar">
+      </form>
+      <form th:action="@{/eliminar/{id}(id=${tar.id})}" method="post">
+        <input type="submit" value="Eliminar">
+      </form>
+    </li>
+  </ul>
+
+</body>
+
+</html>
