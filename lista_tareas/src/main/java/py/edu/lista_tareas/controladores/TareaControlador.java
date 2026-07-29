@@ -47,6 +47,8 @@ public class TareaControlador {
   @PostMapping("/eliminar/{id}")
   public String eliminar(@PathVariable Long id) {
 
+    servicio.borrar(id);
+
     return "redirect:/";
   }
 

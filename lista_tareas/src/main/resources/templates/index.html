@@ -5,30 +5,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de tareas</title>
+  <style>
+    ul {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    li {
+      display: flex;
+      height: 30px;
+      border-bottom: 1px solid black;
+      margin-top: 10px;
+    }
+
+    li div {
+      width: 60%;
+      font-size: 1.1rem;
+    }
+
+    .completada {
+      text-decoration: line-through;
+      color: #ccc;
+    }
+  </style>
 </head>
 
 <body>
 
   <h1>App de Lista de Tareas</h1>
 
+  <hr>
+
   <form th:action="@{/guardar}" th:object="${tarea}" method="post">
 
     <label for="descripcion">Descripcion de la tarea:</label>
-    <input type="text" th:field="*{descripcion}" id="descripcion" placeholder="Ingrese la descripción">
+    <input type="text" th:field="*{descripcion}" id="descripcion" placeholder="Ingrese la descripción" required>
     <input type="submit" value="Guardar">
 
   </form>
 
+  <hr>
+
   <h2>Tareas pendientes</h2>
+
   <ul th:object="${tareas}">
     <li th:each="tar :${tareas}">
-      <span th:text="${tar.descripcion}"></span>
-      <span th:text="${tar.completada} ? ' - Completada' : ' - Pendiente' "></span>
-      <form th:action="@{/completar/{id}(id=${tar.id})}" method="post">
-        <input type="submit" value="Completar">
+      <div>
+        <span th:classappend="${tar.completada} ? 'completada' : ''" th:text="${tar.descripcion}"></span>
+      </div>
+
+      <form th:if="${tar.completada} == false" th:action="@{/completar/{id}(id=${tar.id})}" method="post">
+        <input type="submit" value="✓">
       </form>
-      <form th:action="@{/eliminar/{id}(id=${tar.id})}" method="post">
-        <input type="submit" value="Eliminar">
+      <form th:if="${tar.completada} == true" th:action="@{/eliminar/{id}(id=${tar.id})}" method="post">
+        <input type="submit" value="␡">
       </form>
     </li>
   </ul>

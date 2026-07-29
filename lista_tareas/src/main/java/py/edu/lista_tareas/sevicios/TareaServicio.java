@@ -19,7 +19,7 @@ public class TareaServicio {
   }
 
   public List<Tarea> recuperarTodas() {
-    return repo.findAll();
+    return repo.listar();
   }
 
   public Boolean completarTarea(Long id) {
@@ -31,6 +31,10 @@ public class TareaServicio {
       repo.save(tareaACompletar);
       return true;
     }
+  }
+
+  public void borrar(Long id) {
+    repo.deleteById(id);
   }
 
 }
