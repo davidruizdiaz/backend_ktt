@@ -1,0 +1,23 @@
+# Este es para guardar
+POST http://localhost:8080/api/tareas/
+Content-Type: application/json
+
+{
+  "descripcion": "Otra tarea creada desde la API"
+}
+
+# Estes para listar
+GET http://localhost:8080/api/tareas/
+Content-Type: application/json
+
+# Para actualizar el estado
+PUT http://localhost:8080/api/tareas/
+Content-Type: application/json
+
+17
+
+# Para eliminar
+DELETE http://localhost:8080/api/tareas/
+Content-Type: application/json
+
+17
